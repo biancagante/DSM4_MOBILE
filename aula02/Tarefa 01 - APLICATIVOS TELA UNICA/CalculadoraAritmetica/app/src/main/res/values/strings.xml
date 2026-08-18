@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CalculadoraAritmetica</string>
+    <string name="app_string_title">Calculadora Aritmética</string>
+    <string name="app_string_button_plus">+</string>
+    <string name="app_string_button_minus">-</string>
+    <string name="app_string_button_division">÷</string>
+    <string name="app_string_button_multiply">×</string>
+    <string name="app_string_button_clear_field">Limpar</string>
+    <string name="app_string_button_calculate">=</string>
+    <string name="app_string_text_result">Resultado:</string>
+    <string name="app_string_content_desc_input">input field for entering arithmetic equations.</string>
+    <string name="app_string_hint_input">Insira os valores</string>
 </resources>
