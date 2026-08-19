@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.set
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import java.util.stream.Stream
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         // operações
         val plus = findViewById<Button>(R.id.btn_plus)
-//        val minus = findViewById<Button>(R.id.btn_minus)
-//        val division = findViewById<Button>(R.id.btn_division)
-//        val multiply = findViewById<Button>(R.id.btn_multiply)
+        val minus = findViewById<Button>(R.id.btn_minus)
+        val division = findViewById<Button>(R.id.btn_division)
+        val multiply = findViewById<Button>(R.id.btn_multiply)
 
         // ações e resultado
         val calculate = findViewById<Button>(R.id.btn_calculate_result)
@@ -40,24 +39,69 @@ class MainActivity : AppCompatActivity() {
             inputValues.text.append("+")
         }
 
-        fun getSymbol() : Char {
-            for (a in inputValues.text) {
-                if (a.equals('+') || a.equals('-')) {
-                    return a
+        minus.setOnClickListener {
+            inputValues.text.append("-")
+        }
+
+        division.setOnClickListener {
+            inputValues.text.append("÷")
+        }
+
+        multiply.setOnClickListener {
+            inputValues.text.append("×")
+        }
+
+        fun calcular(): Double {
+            // values é um array os números inseridos e symbols é um array dos operadores, que foram  inseridos como texto no inputValues
+            val values = inputValues.text.split("[+\\-÷×]".toRegex()).map { it.toDouble() }.toMutableList()
+            val symbols = "[+\\-÷×]".toRegex().findAll(inputValues.text).map { it.value }.toMutableList()
+
+            var c = 0
+            while (c < symbols.size) {
+                if (symbols[c] == "×" || symbols[c] == "÷") {
+                    // vai pegar no array de números, o número antes do operador (casa definida como c) e depois do operador
+                    var number1 = values[c]
+                    var number2 = values[c+1]
+                    var resultNumber = 0.0
+
+                    if (symbols[c] == "×") resultNumber = number1 * number2
+
+                    else {
+                        if (number2 == 0.0) {
+                            Toast.makeText(this, "Não foi possível dividir por zero", Toast.LENGTH_SHORT).show()
+                        }
+                        else resultNumber = number1 / number2
+                    }
+                    // o número antes do operador passa a ser o resultado, e o número depois é removido, assim como o operador que já foi utilizado
+                    values[c] = resultNumber
+                    values.removeAt(c+1)
+                    symbols.removeAt(c)
+                }
+
+                c++
+            }
+            // aqui o for percorre pelos simbolos restantes (+ e -)
+            var finalResult = values[0]
+            for(d in 0 until (symbols.size)) {
+                if (symbols[d] == "+") {
+                    finalResult += values[d+1]
+                }
+
+                else if (symbols[d] == "-") {
+                    finalResult -= values[d+1]
                 }
             }
 
-            return ' '
+            return finalResult
         }
 
         calculate.setOnClickListener {
-            var teste = inputValues.text.split("+", "-", "/", "*")
-//            var soma = 0
-//            for (i in 0 until(teste.size)) {
-//                soma += teste[i].toInt()
-//            }
-//            result.text = soma.toString()
-            result.text = getSymbol().toString()
+            if (inputValues.text.isNullOrBlank()) {
+                Toast.makeText(this, "Entrada inválida", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                result.text = calcular().toString()
+            }
         }
 
         clearField.setOnClickListener {
