@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "596837614951",
+    "project_id": "mobileale-72881",
+    "storage_bucket": "mobileale-72881.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596837614951:android:91d67c429bd58113dddbc2",
+        "android_client_info": {
+          "package_name": "br.edu.fatecpg.appfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB70lZzIegYLbrOA6s9-yIoulp0gQ0NI5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
