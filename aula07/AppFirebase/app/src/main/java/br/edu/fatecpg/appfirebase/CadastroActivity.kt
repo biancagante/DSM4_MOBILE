@@ -2,9 +2,11 @@ package br.edu.fatecpg.appfirebase
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -30,10 +32,31 @@ class CadastroActivity : AppCompatActivity(R.layout.activity_cadastro) {
         btnCadastrar.setOnClickListener {
             auth.createUserWithEmailAndPassword(edtUser.text.toString(), edtSenha.text.toString()).addOnCompleteListener {
                 task -> if (task.isSuccessful) {
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                }
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else {
+                        if (edtUser.text.isNullOrEmpty() || edtSenha.text.isNullOrEmpty()) {
+                            Toast.makeText(this, "Algum campo está vazio", Toast.LENGTH_SHORT)
+                        }
+
+                        else if (!edtUser.text.toString().contains("@") || !edtUser.text.toString().contains(".com")) {
+                            Toast.makeText(this, "Usuário inválido", Toast.LENGTH_SHORT)
+                        }
+
+                        else {
+                            Toast.makeText(this, "Não foi possível efetuar login", Toast.LENGTH_SHORT)
+                            Log.i("Login error", "Não foi possível logar com firebase")
+                        }
+                    }
             }
+        }
+
+        pageLogin.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+
+            finish()
         }
     }
 }

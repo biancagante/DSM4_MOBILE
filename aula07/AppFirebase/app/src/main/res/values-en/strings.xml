@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AppFirebase</string>
+    <string name="cadastro_sublinhado"><u>Go to Sign Up</u></string>
+    <string name="login_sublinhado"><u>Go to Sign In</u></string>
+</resources>
