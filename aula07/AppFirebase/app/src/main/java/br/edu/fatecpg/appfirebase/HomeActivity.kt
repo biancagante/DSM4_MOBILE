@@ -1,5 +1,6 @@
 package br.edu.fatecpg.appfirebase
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -21,9 +22,17 @@ class HomeActivity : AppCompatActivity() {
         }
         val auth = FirebaseAuth.getInstance()
         val logout = findViewById<Button>(R.id.btnLogout)
+        val deletarConta = findViewById<Button>(R.id.btnDeletarConta)
+        val intent = Intent(this@HomeActivity, MainActivity::class.java)
 
         logout.setOnClickListener {
             auth.signOut()
+            startActivity(intent)
+        }
+
+        deletarConta.setOnClickListener {
+            auth.currentUser?.delete()
+            finish()
         }
     }
 
