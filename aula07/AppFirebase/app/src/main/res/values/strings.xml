@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AppFirebase</string>
-    <string name="cadastro_sublinhado"><u>Vá para cadastro</u></string>
-    <string name="login_sublinhado"><u>Vá para login</u></string>
+    <string name="cadastro_sublinhado">Não possui uma conta? <u>Cadastre-se</u></string>
+    <string name="login_sublinhado">Possui conta? <u>Faça login</u></string>
 </resources>
